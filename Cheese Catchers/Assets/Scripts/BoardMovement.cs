@@ -34,7 +34,7 @@ public class BoardMovement : MonoBehaviour
         Vector3 velocity = GetComponent<Rigidbody>().velocity;
 
         // Make sure the board is moving forward at the maximum speed at max
-        float zSpeed = velocity.z;
+        float zSpeed = velocity.z + 1.0F;
         zSpeed *= (float)Math.Min(1, maxSpeed / Math.Sqrt(GetComponent<Rigidbody>().velocity.z * GetComponent<Rigidbody>().velocity.z));
 
         // Get keyboard input
@@ -50,15 +50,19 @@ public class BoardMovement : MonoBehaviour
         // Make sure the board doesn't fall off the track :)
         if (GetComponent<Collider>().bounds.min.x < minX)
         {
-            float distFromEdge = Math.Abs(GetComponent<Collider>().bounds.min.x - track.GetComponent<Collider>().bounds.min.x);
-            velocity.x += arrowMove.x * (1.0F - (float) Math.Cos(Math.PI / distFromEdge / 2));
+            moveSideways(track.GetComponent<Collider>().bounds.min.x, GetComponent<Collider>().bounds.min.x, ref velocity.x, 1.0F);
         }
         if (GetComponent<Collider>().bounds.max.x > maxX)
         {
-            float distFromEdge = Math.Abs(GetComponent<Collider>().bounds.max.x - track.GetComponent<Collider>().bounds.max.x);
-            velocity.x -= arrowMove.x * (1.0F - (float)Math.Cos(Math.PI / distFromEdge / 2));
+            moveSideways(track.GetComponent<Collider>().bounds.max.x, GetComponent<Collider>().bounds.max.x, ref velocity.x, -1.0F);
         }
 
         GetComponent<Rigidbody>().velocity = new Vector3(Math.Min(velocity.x * 0.95F, maxSidewaysSpeed), velocity.y, zSpeed);
+    }
+
+    void moveSideways(float trackMaxX, float boardMaxX, ref float xVel, float directionSign)
+    {
+        float distFromEdge = Math.Abs(trackMaxX - boardMaxX);
+        xVel += directionSign * arrowMove.x * (1.0F - (float)Math.Cos(Math.PI / distFromEdge / 2));
     }
 }
