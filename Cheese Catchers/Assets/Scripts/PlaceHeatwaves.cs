@@ -20,7 +20,7 @@ public class PlaceHeatwaves : MonoBehaviour {
     void CreateHW() {
         float RandValue = Random.value;
         float PosZ = player.transform.position.z;
-        //float posX = Random.RandomRange();
+       // float posX = Random
         if(RandValue >= 0 && RandValue <= 0.3) {
            // Instantiate(heatwave, player.transform.position.) )
         }
