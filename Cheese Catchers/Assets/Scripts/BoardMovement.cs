@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class BoardMovement : MonoBehaviour
 {
     // Speed limits
-    public float maxSpeed;
-    public float maxSidewaysSpeed;
+    public float maxSpeed = 10;
+    public float maxSidewaysSpeed = 10;
 
     // Movement when player holds an arrow key
-    public Vector3 arrowMove;
+    public Vector3 arrowMove = new Vector3(0.5F, 0, 0);
 
     // The width of the track, so that the player never falls off
     public GameObject track;
@@ -40,6 +41,7 @@ public class BoardMovement : MonoBehaviour
         if (collider.bounds.max.z > 1111)
         {
             // PLAYER HAS WON O_O
+            SceneManager.LoadScene("End screen", LoadSceneMode.Single);
         }
 
         // Set the maximum velocity
