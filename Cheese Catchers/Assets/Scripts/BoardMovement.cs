@@ -37,12 +37,6 @@ public class BoardMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Ending condition
-        if (collider.bounds.max.z > 1111)
-        {
-            // PLAYER HAS WON O_O
-            SceneManager.LoadScene("End screen", LoadSceneMode.Single);
-        }
 
         // Set the maximum velocity
         Vector3 velocity = GetComponent<Rigidbody>().velocity;
@@ -50,6 +44,13 @@ public class BoardMovement : MonoBehaviour
         // Make sure the board is moving forward at the maximum speed at max
         float zSpeed = velocity.z + 1.0F;
         zSpeed *= (float)Math.Min(1, heatSpeedMod * maxSpeed / Math.Sqrt(GetComponent<Rigidbody>().velocity.z * GetComponent<Rigidbody>().velocity.z));
+
+        // Ending condition
+        if (collider.bounds.max.z > 1111 || zSpeed <= 0)
+        {
+            // PLAYER HAS WON O_O
+            SceneManager.LoadScene("End screen", LoadSceneMode.Single);
+        }
 
         // Get keyboard input
         if (Input.GetKey(KeyCode.LeftArrow))
