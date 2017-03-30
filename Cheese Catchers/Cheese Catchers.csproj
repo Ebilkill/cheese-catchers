@@ -76,7 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\BoardMovement.cs" />
-    <Compile Include="Assets\Scripts\HeatBar.cs" />
     <Compile Include="Assets\Scripts\Heatwave.cs" />
     <Compile Include="Assets\Scripts\PlaceHeatwaves.cs" />
   </ItemGroup>
