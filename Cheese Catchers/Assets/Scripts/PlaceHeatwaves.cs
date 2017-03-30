@@ -4,25 +4,27 @@ using UnityEngine;
 
 public class PlaceHeatwaves : MonoBehaviour {
 
-    GameObject heatwave;
-    GameObject player;
+    public Transform heatwave;
     // Use this for initialization
-    void Start () {
-        heatwave = (GameObject)Resources.Load("HeatWave");
-        player = GameObject.FindGameObjectWithTag("Player");
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Start() {
+        CreateHW();
+    }
+
+    // Update is called once per frame
+    void Update() {
+
+    }
 
     void CreateHW() {
-        float RandValue = Random.value;
-        float PosZ = player.transform.position.z;
-       // float posX = Random
-        if(RandValue >= 0 && RandValue <= 0.3) {
-           // Instantiate(heatwave, player.transform.position.) )
+        float z = -725f;
+        while (z <= 1150f) {
+            z = z + 10f + Random.Range(0f, 15f);
+            float i = z;
+
+            float RandomZ = Random.Range(0f, 5f) + i;
+            float RandomX = Random.Range(-5f, 5f);
+            Vector3 pos = new Vector3(RandomX, 0, RandomZ);
+            Instantiate(heatwave, pos, Quaternion.identity);
         }
     }
 }
