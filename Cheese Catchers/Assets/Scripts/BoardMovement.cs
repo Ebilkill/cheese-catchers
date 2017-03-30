@@ -15,6 +15,9 @@ public class BoardMovement : MonoBehaviour
     // The width of the track, so that the player never falls off
     public GameObject track;
 
+    // This object's collider
+    private Collider collider;
+
     public float heatSpeedMod = 1.0F;
 
     private float minX, centerX, maxX;
@@ -23,15 +26,22 @@ public class BoardMovement : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        minX = track.GetComponent<Collider>().bounds.min.x + GetComponent<Collider>().bounds.size.x;
+        collider = GetComponent<Collider>();
+        minX = track.GetComponent<Collider>().bounds.min.x + collider.bounds.size.x;
         centerX = track.GetComponent<Collider>().bounds.center.x;
-        maxX = track.GetComponent<Collider>().bounds.max.x - GetComponent<Collider>().bounds.size.x;
+        maxX = track.GetComponent<Collider>().bounds.max.x - collider.bounds.size.x;
         trackWidth = minX - centerX;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Ending condition
+        if (collider.bounds.max.z > 1111)
+        {
+            // PLAYER HAS WON O_O
+        }
+
         // Set the maximum velocity
         Vector3 velocity = GetComponent<Rigidbody>().velocity;
 
@@ -50,13 +60,13 @@ public class BoardMovement : MonoBehaviour
         }
 
         // Make sure the board doesn't fall off the track :)
-        if (GetComponent<Collider>().bounds.min.x < minX)
+        if (collider.bounds.min.x < minX)
         {
-            moveSideways(track.GetComponent<Collider>().bounds.min.x, GetComponent<Collider>().bounds.min.x, ref velocity.x, 1.0F);
+            moveSideways(track.GetComponent<Collider>().bounds.min.x, collider.bounds.min.x, ref velocity.x, 1.0F);
         }
-        if (GetComponent<Collider>().bounds.max.x > maxX)
+        if (collider.bounds.max.x > maxX)
         {
-            moveSideways(track.GetComponent<Collider>().bounds.max.x, GetComponent<Collider>().bounds.max.x, ref velocity.x, -1.0F);
+            moveSideways(track.GetComponent<Collider>().bounds.max.x, collider.bounds.max.x, ref velocity.x, -1.0F);
         }
 
         GetComponent<Rigidbody>().velocity = new Vector3(Math.Min(velocity.x * 0.95F, maxSidewaysSpeed), velocity.y, zSpeed);
