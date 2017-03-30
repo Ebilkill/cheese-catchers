@@ -15,6 +15,8 @@ public class BoardMovement : MonoBehaviour
     // The width of the track, so that the player never falls off
     public GameObject track;
 
+    public float heatSpeedMod = 1.0F;
+
     private float minX, centerX, maxX;
     private float trackWidth;
 
@@ -35,7 +37,7 @@ public class BoardMovement : MonoBehaviour
 
         // Make sure the board is moving forward at the maximum speed at max
         float zSpeed = velocity.z + 1.0F;
-        zSpeed *= (float)Math.Min(1, maxSpeed / Math.Sqrt(GetComponent<Rigidbody>().velocity.z * GetComponent<Rigidbody>().velocity.z));
+        zSpeed *= (float)Math.Min(1, heatSpeedMod * maxSpeed / Math.Sqrt(GetComponent<Rigidbody>().velocity.z * GetComponent<Rigidbody>().velocity.z));
 
         // Get keyboard input
         if (Input.GetKey(KeyCode.LeftArrow))
