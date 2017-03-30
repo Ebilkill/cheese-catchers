@@ -16,8 +16,12 @@ public class Heatwave : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision) {
         if(collision.gameObject.tag == "Player") {
-
+            GameObject go_heatBar = GameObject.Find("HeatBar");
+            HeatBar heatBar = (HeatBar)go_heatBar.GetComponent<HeatBar>();
+            heatBar.replenishHeatBar();
             Destroy(gameObject);
         }
     }
+
+    
 }
