@@ -23,7 +23,7 @@ public class PlaceHeatwaves : MonoBehaviour {
 
             float RandomZ = Random.Range(0f, 5f) + i;
             float RandomX = Random.Range(-5f, 5f);
-            Vector3 pos = new Vector3(RandomX, 0, RandomZ);
+            Vector3 pos = new Vector3(RandomX, 0.59f, RandomZ);
             Instantiate(heatwave, pos, Quaternion.identity);
         }
     }
